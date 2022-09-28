@@ -1,10 +1,10 @@
 import Story from '../Story';
-import { useTopStoryIDs } from '../../services/api';
+import { useTopStoryIDs } from '../../services/hooks';
 
 export const StoryList = () => {
-  const [loading, topStoryIDs] = useTopStoryIDs(10);
+  const topStoryIDs = useTopStoryIDs(10);
 
-  if (loading) {
+  if (!topStoryIDs) {
     return null;
   }
 

@@ -4,7 +4,7 @@ import StoryHeader from './StoryHeader';
 import StoryFooter from './StoryFooter';
 import CommentCount from '../CommentCount';
 import UpVotes from '../UpVotes';
-import { useStory } from '../../services/api';
+import { useStory } from '../../services/hooks';
 
 interface Props {
   id: ItemID
