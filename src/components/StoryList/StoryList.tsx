@@ -1,7 +1,7 @@
 import Story from '../Story';
 import { useTopStoryIDs } from '../../services/api';
 
-const Stories = () => {
+export const StoryList = () => {
   const [loading, topStoryIDs] = useTopStoryIDs(10);
 
   if (loading) {
@@ -17,4 +17,4 @@ const Stories = () => {
   );
 };
 
-export default Stories;
+export default StoryList;

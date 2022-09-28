@@ -1,9 +1,8 @@
 # To Do
 
-1. Cleanup components into readable abstractions (Hide Material UI)
-2. Add simple component test for a story
-3. Install playwright
-4. Add end to end test
+- Add simple component test for a story
+- Install playwright
+- Add end to end test
 
 # Getting Started with Create React App
 
