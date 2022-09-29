@@ -13,5 +13,14 @@ test('Top stories render to the DOM', async ({ page }) => {
   const test = new PageModel(page, mockStories);
   await test.goto('http://localhost:3000');
   await test.waitForStories();
-  // Assertions can be made here now all stories have returned
+
+  const [first, second, third] = Object.keys(mockStories);
+
+  // Test the text content of the first two titles against the expected mocks
+  await expect(page.locator(`.story-title-${first}`)).toHaveText(mockStories[first].title);
+  await expect(page.locator(`.story-title-${second}`)).toHaveText(mockStories[second].title);
+
+  // Click the third page title and assert the page navigated to the expected URL
+  await page.locator(`.story-title-${third}`).click();
+  expect(page.url()).toEqual(mockStories[third].url);
 });

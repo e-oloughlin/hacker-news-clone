@@ -22,6 +22,7 @@ const Story = ({ id }: Props) => {
   return (
     <Card data-id={id} sx={{ marginBottom: '20px' }}>
       <StoryHeader
+        id={id}
         url={url}
         title={title}
         time={time}

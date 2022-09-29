@@ -70,6 +70,11 @@ export default class PageModel {
     });
   }
 
+  /**
+   * This method returns an array of promises, all of which
+   * are relevant page events for hacker news stories which
+   * once resolved signify that it is safe to begin assertions on the DOM.
+   */
   async waitForStories() {
     type PageEvents = Promise<Response> | Promise<ElementHandle<SVGElement | HTMLElement>>;
 
@@ -77,7 +82,7 @@ export default class PageModel {
       return [
         ...all,
         this.page.waitForResponse(singleStoryUrl(id)),
-        this.page.waitForSelector(`[data-id="${id}"]`),
+        this.page.waitForSelector(`[data-id="${id}"]`, { state: 'visible' }),
       ];
     }, []);
 

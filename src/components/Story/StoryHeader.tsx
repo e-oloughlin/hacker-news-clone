@@ -8,15 +8,17 @@ import {
 import LaunchIcon from '@mui/icons-material/Launch';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import { indigo } from '@mui/material/colors';
+import type { ItemID } from '../../models';
 
 interface Props {
+  id: ItemID;
   url?: string;
   title: string;
   time: number;
   by: string;
 }
 
-const StoryHeader = ({ url, title, time, by }: Props) => (
+const StoryHeader = ({ id, url, title, time, by }: Props) => (
   <>
     <CardHeader
       avatar={
@@ -31,8 +33,8 @@ const StoryHeader = ({ url, title, time, by }: Props) => (
               href={url}
               color="inherit"
               underline="hover"
-              target="_blank"
               sx={{ display: 'flex' }}
+              className={`story-title-${id}`}
             >
               {title} <LaunchIcon color="primary" sx={{ ml: '5px' }} />
             </Link>
