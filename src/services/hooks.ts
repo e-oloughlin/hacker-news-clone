@@ -33,20 +33,36 @@ export const useAllStories = (category: Category): allStoriesResponse => {
   };
 };
 
-export const useStory = (id: ItemID): Item | null => {
+interface SingleStoryResponse {
+  loading: boolean;
+  story: Item | null;
+}
+
+export const useStory = (id: ItemID): SingleStoryResponse => {
+  const [loading, setLoading] = useState(false);
   const [story, setStory] = useState<Item | null>(null);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     (async () => {
+      setLoading(true);
       try {
-        const request = await fetch(singleStory(id));
+        const request = await fetch(singleStory(id), {
+          signal: controller.signal
+        });
         const response = await request.json();
         setStory(response);
-      } catch (error) {
+        setLoading(false);
+      } catch (error: any) {
+        setLoading(false);
+        if (error.name === 'AbortError') return;
         console.error(error);
       }
     })();
+
+    return () => controller.abort();
   }, [id]);
 
-  return story;
+  return { loading, story };
 };

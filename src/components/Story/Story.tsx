@@ -3,6 +3,7 @@ import type { ItemID } from '../../models';
 import StoryHeader from './StoryHeader';
 import StoryFooter from './StoryFooter';
 import CommentCount from '../CommentCount';
+import SkeletonStory from '../SkeletonStory';
 import UpVotes from '../UpVotes';
 import { useStory } from '../../services/hooks';
 
@@ -11,7 +12,13 @@ interface Props {
 }
 
 const Story = ({ id }: Props) => {
-  const story = useStory(id);
+  const { loading, story } = useStory(id);
+
+  if (loading) {
+    return (
+      <SkeletonStory />
+    );
+  }
 
   if (!story) {
     return null;
