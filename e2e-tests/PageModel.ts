@@ -1,6 +1,6 @@
 import { Page, expect } from '@playwright/test';
 import type { ElementHandle, Response } from '@playwright/test';
-import { topStoriesUrl, singleStoryRegex, singleStoryUrl } from './utils';
+import { allStoriesRegex, singleStoryRegex, singleStoryUrl } from './utils';
 import type { Item, ItemID } from '../src/models/index';
 
 interface MockStories {
@@ -35,7 +35,7 @@ export default class PageModel {
    * so the API never gets hit.
    */
   async interceptTopStories() {
-    await this.page.route(topStoriesUrl, (route) => route.fulfill({
+    await this.page.route(allStoriesRegex, (route) => route.fulfill({
       contentType: 'application/json',
       body: JSON.stringify(this.mockStoryIds),
       headers: {
