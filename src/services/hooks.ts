@@ -1,23 +1,36 @@
-import { useEffect, useState } from "react";
-import type { ItemID, Item } from '../models';
-import { topStoriesEndpoint, storyEndpoint } from '../constants';
+import { useEffect, useState } from 'react';
+import type { ItemID, Item, Category } from '../models';
+import { allStories, singleStory } from '../utils';
 
-export const useTopStoryIDs = (limit: number): ItemID[] => {
-  const [topStoryIDs, setTopStoryIDs] = useState<ItemID[]>([]);
+interface allStoriesResponse {
+  loading: boolean;
+  storyIDs: ItemID[];
+}
+
+export const useAllStories = (category: Category): allStoriesResponse => {
+  const [loading, setLoading] = useState(false);
+  const [storyIDs, setStoryIDs] = useState<ItemID[]>([]);
 
   useEffect(() => {
+    let response;
     (async () => {
+      setLoading(true);
       try {
-        const request = await fetch(topStoriesEndpoint);
-        const response = await request.json();
-        setTopStoryIDs(response.slice(0, limit));
+        const request = await fetch(allStories(category));
+        response = await request.json();
+        setStoryIDs(response.slice(0, 10));
+        setLoading(false);
       } catch (error) {
-        console.error(error);
+        console.error(error);;
+        setLoading(false);
       }
     })();
-  }, [limit]);
+  }, [category]);
 
-  return topStoryIDs;
+  return {
+    loading,
+    storyIDs,
+  };
 };
 
 export const useStory = (id: ItemID): Item | null => {
@@ -26,7 +39,7 @@ export const useStory = (id: ItemID): Item | null => {
   useEffect(() => {
     (async () => {
       try {
-        const request = await fetch(storyEndpoint(id));
+        const request = await fetch(singleStory(id));
         const response = await request.json();
         setStory(response);
       } catch (error) {

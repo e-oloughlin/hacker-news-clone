@@ -25,3 +25,5 @@ export interface Item {
   parts: ItemID[];
   descendants: ItemID;
 }
+
+export type Category = 'new' | 'top';
