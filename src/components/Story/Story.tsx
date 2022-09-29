@@ -20,7 +20,7 @@ const Story = ({ id }: Props) => {
   const { url, title, time, by, score, descendants } = story;
 
   return (
-    <Card sx={{ marginBottom: '20px' }}>
+    <Card data-id={id} sx={{ marginBottom: '20px' }}>
       <StoryHeader
         url={url}
         title={title}
