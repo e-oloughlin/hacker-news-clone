@@ -8,7 +8,7 @@
     "test": "react-scripts test",
     "test:e2e": "playwright test",
     "test:e2e:headed": "npm run test:e2e -- --headed",
-    "eject": "react-scripts eject"
+    "postinstall": "npx playwright install"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
