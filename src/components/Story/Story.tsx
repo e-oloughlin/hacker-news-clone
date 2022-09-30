@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import { Card } from '@mui/material';
 import type { ItemID } from '../../models';
 import StoryHeader from './StoryHeader';
@@ -5,13 +6,13 @@ import StoryFooter from './StoryFooter';
 import CommentCount from '../CommentCount';
 import SkeletonStory from '../SkeletonStory';
 import UpVotes from '../UpVotes';
-import { useStory } from '../../services/hooks';
+import { useStory } from '../../hooks/data';
 
 interface Props {
   id: ItemID
 }
 
-const Story = ({ id }: Props) => {
+const Story = forwardRef(({ id }: Props, ref) => {
   const { loading, story } = useStory(id);
 
   if (loading) {
@@ -27,7 +28,9 @@ const Story = ({ id }: Props) => {
   const { url, title, time, by, score, descendants } = story;
 
   return (
-    <Card data-id={id} sx={{ marginBottom: '20px' }}>
+    // Typescript has a problem with the ref, ignore, for now.
+    // @ts-ignore-next-line
+    <Card ref={ref} data-id={id} sx={{ marginBottom: '20px' }}>
       <StoryHeader
         id={id}
         url={url}
@@ -41,6 +44,6 @@ const Story = ({ id }: Props) => {
       </StoryFooter>
     </Card>
   );
-};
+});
 
 export default Story;

@@ -5,10 +5,14 @@ import { allStories, singleStory } from '../utils';
 interface allStoriesResponse {
   loading: boolean;
   storyIDs: ItemID[];
+  pageNumber: number;
+  incrementPageNumber: () => void;
+  resetPageNumber: () => void;
 }
 
 export const useAllStories = (category: Category): allStoriesResponse => {
   const [loading, setLoading] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
   const [storyIDs, setStoryIDs] = useState<ItemID[]>([]);
 
   useEffect(() => {
@@ -18,18 +22,21 @@ export const useAllStories = (category: Category): allStoriesResponse => {
       try {
         const request = await fetch(allStories(category));
         response = await request.json();
-        setStoryIDs(response.slice(0, 10));
+        setStoryIDs(response.slice(0, 10 * pageNumber));
         setLoading(false);
       } catch (error) {
         console.error(error);;
         setLoading(false);
       }
     })();
-  }, [category]);
+  }, [category, pageNumber]);
 
   return {
     loading,
     storyIDs,
+    pageNumber,
+    incrementPageNumber: () => setPageNumber(pageNumber + 1),
+    resetPageNumber: () => setPageNumber(1),
   };
 };
 
