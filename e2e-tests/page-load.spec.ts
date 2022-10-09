@@ -13,17 +13,16 @@ test('Hacker News Clone page loads successfully', async ({ page }) => {
 test('Stories render & page links work', async ({ page }) => {
   const test = new PageModel(page, mockStories);
   await test.goto('http://localhost:3000');
-  await test.waitForStories();
 
-  const [first, second, third] = Object.keys(mockStories);
+  const [first, second, third] = mockStories;
 
   // Test the text content of the first two titles against the expected mocks
-  await expect(page.locator(`.story-title-${first}`)).toHaveText(mockStories[first].title);
-  await expect(page.locator(`.story-title-${second}`)).toHaveText(mockStories[second].title);
+  await expect(page.locator(`.story-title-${first.id}`)).toHaveText(first.title);
+  await expect(page.locator(`.story-title-${second.id}`)).toHaveText(second.title);
 
   // Click the third page title and assert the page navigated to the expected URL
-  await page.locator(`.story-title-${third}`).click();
-  expect(page.url()).toEqual(mockStories[third].url);
+  await page.locator(`.story-title-${third.id}`).click();
+  expect(page.url()).toEqual(third.url);
 });
 
 // This test could be improved by making further assertions on the DOM content
@@ -32,7 +31,6 @@ test('Stories render & page links work', async ({ page }) => {
 test('Toggling between top & new stories requests the correct endpoint', async ({ page }) => {
   const test = new PageModel(page, mockStories);
   await test.goto('http://localhost:3000');
-  await test.waitForStories();
 
   // Click the top stories toggle and
   // expect the resulting request to go to the topstories endpoint

@@ -67,3 +67,9 @@ Launches end to end tests in headed mode. These tests will not work without a ru
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
+
+## Improvements
+
+- Minor: React Helmet [not compatible](https://github.com/nfl/react-helmet/issues/548) with future async rendering
+- For very long scrolls, addition of [react-window](https://github.com/bvaughn/react-window) to only render what is visible within the viewport
+- Removal of duplicated API request logic, abstract into a reusable hook

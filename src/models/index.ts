@@ -1,12 +1,12 @@
 export type ItemID = number;
 
-enum ItemType {
+export enum ItemType {
   Job = 'job',
   Story = 'story',
   Comment = 'comment',
   Poll = 'poll',
   Pollpot = 'pollopt'
-}
+};
 
 export interface Item {
   id: ItemID;
@@ -14,15 +14,15 @@ export interface Item {
   type: ItemType;
   by: string;
   time: ItemID;
-  text: string;
+  text?: string;
   dead?: boolean;
-  parent: ItemID;
-  poll: ItemID;
+  parent?: ItemID;
+  poll?: ItemID;
   kids: ItemID[];
   url: string;
   score: ItemID;
   title: string;
-  parts: ItemID[];
+  parts?: ItemID[];
   descendants: ItemID;
 }
 

@@ -5,6 +5,7 @@ import {
   CardContent,
   Box
 } from '@mui/material';
+import { memo } from 'react';
 
 export const SkeletonStory = () => (
   <Card sx={{ mb: 2 }}>
@@ -42,4 +43,4 @@ export const SkeletonStory = () => (
   </Card>
 );
 
-export default SkeletonStory;
+export default memo(SkeletonStory);

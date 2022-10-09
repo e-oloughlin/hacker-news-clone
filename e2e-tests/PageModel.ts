@@ -3,19 +3,15 @@ import type { ElementHandle, Response } from '@playwright/test';
 import { allStoriesRegex, singleStoryRegex, singleStoryUrl } from './utils';
 import type { Item, ItemID } from '../src/models/index';
 
-interface MockStories {
-  [key: string]: Item;
-}
-
 export default class PageModel {
   readonly page: Page;
-  readonly mockStories: MockStories;
+  readonly mockStories: Item[];
   readonly mockStoryIds: ItemID[];
 
-  constructor(page: Page, mockStories: MockStories) {
+  constructor(page: Page, mockStories: Item[]) {
     this.page = page;
     this.mockStories = mockStories;
-    this.mockStoryIds = Object.keys(mockStories).map(id => Number(id));
+    this.mockStoryIds = mockStories.map(({ id }) => id);
     this.interceptTopStories();
     this.interceptSingleStories();
   }
@@ -57,9 +53,11 @@ export default class PageModel {
       if (match) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [_, id] = match;
+        const story = this.mockStories.find(story => story.id === Number(id));
+
         return route.fulfill({
           contentType: 'application/json',
-          body: JSON.stringify(this.mockStories[id]),
+          body: JSON.stringify(story),
           headers: {
             mocked: 'true'
           }
