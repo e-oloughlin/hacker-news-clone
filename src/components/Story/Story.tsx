@@ -1,19 +1,20 @@
-import { forwardRef } from 'react';
+import { forwardRef, memo } from 'react';
 import { Card } from '@mui/material';
-import type { ItemID } from '../../models';
+import type { ItemID, Item } from '../../models';
 import StoryHeader from './StoryHeader';
 import StoryFooter from './StoryFooter';
 import CommentCount from '../CommentCount';
 import SkeletonStory from '../SkeletonStory';
 import UpVotes from '../UpVotes';
-import { useStory } from '../../hooks/data';
+import useRequest from '../../hooks/useRequest';
+import { singleStory } from '../../utils';
 
 interface Props {
   id: ItemID
 }
 
 const Story = forwardRef(({ id }: Props, ref) => {
-  const { loading, story } = useStory(id);
+  const { data: story, loading, error } = useRequest<Item>(singleStory(id));
 
   if (loading) {
     return (
@@ -21,7 +22,7 @@ const Story = forwardRef(({ id }: Props, ref) => {
     );
   }
 
-  if (!story) {
+  if (!story || error) {
     return null;
   }
 
@@ -46,4 +47,4 @@ const Story = forwardRef(({ id }: Props, ref) => {
   );
 });
 
-export default Story;
+export default memo(Story);

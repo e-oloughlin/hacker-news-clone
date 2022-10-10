@@ -1,5 +1,7 @@
-export const mockStories = {
-  33010645: {
+import type { ItemType } from '../src/models';
+
+export const mockStories = [
+  {
     by: 'yarapavan',
     descendants: 24,
     id: 33010645,
@@ -7,10 +9,10 @@ export const mockStories = {
     score: 125,
     time: 1664386088,
     title: 'Learn TLA+',
-    type: 'story',
+    type: 'story' as ItemType,
     url: 'https://learntla.com/'
   },
-  33007873: {
+  {
     by: 'caberus',
     descendants: 265,
     id: 33007873,
@@ -18,10 +20,10 @@ export const mockStories = {
     score: 348,
     time: 1664372859,
     title: 'We reduced our server costs by moving away from AWS',
-    type: 'story',
+    type: 'story' as ItemType,
     url: 'https://levelup.gitconnected.com/how-we-reduced-our-annual-server-costs-by-80-from-1m-to-200k-by-moving-away-from-aws-2b98cbd21b46?gi=bb7f54e84163'
   },
-  33007025: {
+  {
     by: 'colinprince',
     descendants: 129,
     id: 33007025,
@@ -29,7 +31,7 @@ export const mockStories = {
     score: 322,
     time: 1664367371,
     title: 'Google Broke Image Search for Creative Commons',
-    type: 'story',
+    type: 'story' as ItemType,
     url: 'https://cogdogblog.com/2022/09/google-broke-cc-image-search/'
   }
-};
+];

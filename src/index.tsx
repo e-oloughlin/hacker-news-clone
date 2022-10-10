@@ -1,4 +1,4 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Helmet } from 'react-helmet';
 import { Global, css } from '@emotion/react';
@@ -29,12 +29,12 @@ body {
 `;
 
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <Helmet>
       <title>Hacker News Clone</title>
       <meta name="viewport" content="initial-scale=1, width=device-width" />
     </Helmet>
     <Global styles={cssOverride} />
     <App />
-  </React.StrictMode>
+  </StrictMode>
 );
